@@ -1,0 +1,32 @@
+# Ignorar archivos generados por Maven
+target/
+
+# Ignorar archivos de configuración de IntelliJ IDEA
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Ignorar el archivo de propiedades (por ejemplo, con credenciales de la base de datos)
+application.properties
+*.properties
+
+# Ignorar archivos de log
+*.log
+
+# Ignorar archivos de compilación de Spring
+*.war
+*.jar
+
+# Ignorar archivos temporales de Spring Boot
+*.db
+*.h2.db
+*.h2.sql
+*.sql
+
+# Ignorar archivos de configuración de la base de datos (si hay archivos locales de configuración de MySQL)
+*.sql
+
+# Ignorar los archivos generados por la base de datos (si tienes alguna carpeta de base de datos local en el proyecto)
+/database/
