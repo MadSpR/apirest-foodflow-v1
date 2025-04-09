@@ -10,7 +10,6 @@
 - **JWT (JSON Web Token)**: Para la autenticación basada en token.
 - **Spring Data JPA**: Para la persistencia de datos con Hibernate.
 - **MySQL**: Base de datos relacional para almacenar los datos.
-- **Lombok**: Para reducir el boilerplate code.
 - **Maven**: Para gestionar las dependencias y la construcción del proyecto.
 - **Spring Boot DevTools**: Para el desarrollo en caliente, facilitando el reinicio automático de la aplicación.
 - **BCrypt**: Para la codificación de contraseñas de los usuarios.
