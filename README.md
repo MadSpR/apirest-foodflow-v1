@@ -1,4 +1,4 @@
-# Proyecto FoodFlow - Backend
+# FoodFlow - Backend
 
 **FoodFlow** es una aplicación backend de gestión de pedidos y usuarios, desarrollada con **Spring Boot** y **JWT** para la autenticación. Permite a los usuarios registrarse, iniciar sesión, consultar menús de platos y hacer pedidos.
 
