@@ -1,5 +1,6 @@
 package com.example.FoodFlow.controllers;
 
+import com.example.FoodFlow.models.Rol;
 import com.example.FoodFlow.models.Usuario;
 import com.example.FoodFlow.repositories.UsuarioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class UsuarioController { //TODO: mover la lógica de negocio a UsuarioSe
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private Base64.Encoder encoder = Base64.getEncoder();
+    //private Base64.Encoder encoder = Base64.getEncoder();
 
     //deprecated, lo he cambiado por un passwordEncoder declarado en securityconfig
 //    private String encryptPass(String pass){
@@ -38,17 +39,18 @@ public class UsuarioController { //TODO: mover la lógica de negocio a UsuarioSe
 
     @PostMapping(path = "/add") //maps ONLY POST petitions
     public @ResponseBody String addNewUser (@RequestParam String nombre, @RequestParam String email, @RequestParam String pass, @RequestParam String direccion, @RequestParam(defaultValue = "USER") String rol){
-        //@ResponseBody means the returned String is the response, not a view name
-        //@RequestParam means it is a parameter from the GET or POST request
-        Usuario usu = new Usuario();
-        usu.setNombre(nombre);
-        usu.setEmail(email);
-        //pass = encryptPass(pass);
-        usu.setPassword(passwordEncoder.encode(pass)); //codifica la pass
-        usu.setDireccion(direccion);
+            //@ResponseBody means the returned String is the response, not a view name
+            //@RequestParam means it is a parameter from the GET or POST request
+            Usuario usu = new Usuario();
+            usu.setNombre(nombre);
+            usu.setEmail(email);
+            //pass = encryptPass(pass);
+            usu.setPassword(passwordEncoder.encode(pass)); //codifica la pass
+            usu.setDireccion(direccion);
+            usu.setRol(Rol.valueOf(rol));
 
-        usuarioRepo.save(usu);
-        return "Saved\n";
+            usuarioRepo.save(usu);
+            return "Saved\n";
     }
 
     @GetMapping(path = "/all")

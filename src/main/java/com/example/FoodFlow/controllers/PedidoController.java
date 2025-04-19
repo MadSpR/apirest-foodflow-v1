@@ -38,6 +38,7 @@ public class PedidoController {
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Pedido>> getPedidoByUser(@PathVariable Long userId){
+        System.out.println("Se está ejecutando el endpoint de getpedidobyuser");
         List<Pedido> pedidos = pedidoService.getPedidoByUser(userId);
         if(pedidos.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

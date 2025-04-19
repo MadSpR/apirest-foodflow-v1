@@ -3,6 +3,7 @@ package com.example.FoodFlow.controllers;
 import com.example.FoodFlow.DTOs.AuthRequestDTO;
 import com.example.FoodFlow.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,11 @@ public class AuthController {
     // devuelve un jwt si las credenciales son correctas
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequestDTO authRequestDTO){
-        String token = authService.login(authRequestDTO.getUsername(), authRequestDTO.getPassword());
-        return ResponseEntity.ok().body(Collections.singletonMap("token", token));
+        try{
+            String token = authService.login(authRequestDTO.getUsername(), authRequestDTO.getPassword());
+            return ResponseEntity.ok().body(Collections.singletonMap("token", token));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas.\n");
+        }
     }
 }

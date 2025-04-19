@@ -41,8 +41,8 @@ public class AuthService{
 
     // autentica un usuario y genera un token JWT
     public String login(String username, String password) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, passwordEncoder.encode(password)));
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
-        return jwtUtil.generateToken(userDetails.getUsername());
+        return jwtUtil.generateToken(username);
     }
 }
