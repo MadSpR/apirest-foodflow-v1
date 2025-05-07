@@ -5,6 +5,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.MacAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -65,7 +66,14 @@ public class JwtUtil {
     /**
      * Valida si el token JWT es válido y pertenece al usuario proporcionado
      */
-    public boolean validateToken(String token){
-        return (extractUsername(token) != null && !isTokenExpired(token));
+    public boolean validateToken(String token, UserDetails userDetails){
+        try{
+            return (extractUsername(token).equals(userDetails.getUsername()) && !isTokenExpired(token));
+        } catch (Exception e){
+            return false;
+        }
+
+
     }
+
 }

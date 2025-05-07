@@ -2,6 +2,7 @@ package com.example.FoodFlow.services;
 
 import com.example.FoodFlow.config.JwtUtil;
 import com.example.FoodFlow.models.Usuario;
+import com.example.FoodFlow.services.CustomUserDetailsService;
 import com.example.FoodFlow.repositories.UsuarioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,6 +44,7 @@ public class AuthService{
     public String login(String username, String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+
         return jwtUtil.generateToken(username);
     }
 }

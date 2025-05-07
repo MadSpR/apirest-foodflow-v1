@@ -3,6 +3,7 @@ package com.example.FoodFlow.controllers;
 import com.example.FoodFlow.models.Plato;
 import com.example.FoodFlow.repositories.PlatoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ public class PlatoController {
     @Autowired
     private PlatoRepo platoRepo;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(path = "/add")
     public @ResponseBody String addNewPlato (@RequestParam String nombre, @RequestParam String descripcion, @RequestParam BigDecimal precio, @RequestParam byte[] imagen, @RequestParam Boolean disponible){
         Plato plato = new Plato();

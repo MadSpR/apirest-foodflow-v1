@@ -4,6 +4,7 @@ import com.example.FoodFlow.models.Rol;
 import com.example.FoodFlow.models.Usuario;
 import com.example.FoodFlow.repositories.UsuarioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,7 @@ public class UsuarioController { //TODO: mover la lógica de negocio a UsuarioSe
 //        }
 //    }
 
+    @PreAuthorize("hasRole('ADMIN')") //TODO: solo un administrador puede añadir usuarios con el rol admin, hasta entonces solo un administrador puede añadir
     @PostMapping(path = "/add") //maps ONLY POST petitions
     public @ResponseBody String addNewUser (@RequestParam String nombre, @RequestParam String email, @RequestParam String pass, @RequestParam String direccion, @RequestParam(defaultValue = "USER") String rol){
             //@ResponseBody means the returned String is the response, not a view name
@@ -53,6 +55,7 @@ public class UsuarioController { //TODO: mover la lógica de negocio a UsuarioSe
             return "Saved\n";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(path = "/all")
     public @ResponseBody Iterable<Usuario> getAllUsers(){
         //this returns a JSON or XML with the users

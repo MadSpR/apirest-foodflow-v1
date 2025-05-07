@@ -6,6 +6,7 @@ import com.example.FoodFlow.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -20,6 +21,7 @@ public class PedidoController {
     @Autowired
     private PedidoService pedidoService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(path = "/all")
     public ResponseEntity<List<Pedido>> getAllPedidos(){
         List<Pedido> pedidos = pedidoService.obtenerTodosLosPedidos();
@@ -56,6 +58,7 @@ public class PedidoController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}") //TODO:añadir autenticación para eliminar un pedido
     public ResponseEntity<Map<String,String>> deletePedido (@PathVariable Long id){
         try{
