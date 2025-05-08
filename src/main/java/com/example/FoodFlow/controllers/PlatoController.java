@@ -29,7 +29,8 @@ public class PlatoController {
         return "Saved\n";
     }
 
-    @PostMapping(path = "/all")
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(path = "/all")
     public @ResponseBody Iterable<Plato> getAllPlatos(){
         return platoRepo.findAll();
     }

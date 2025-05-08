@@ -38,7 +38,7 @@ public class PedidoController {
         }
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/user/{userId}") //TODO: que el id del usuario lo coja a partir del nombre que le da el token
     public ResponseEntity<List<Pedido>> getPedidoByUser(@PathVariable Long userId){
         System.out.println("Se está ejecutando el endpoint de getpedidobyuser");
         List<Pedido> pedidos = pedidoService.getPedidoByUser(userId);

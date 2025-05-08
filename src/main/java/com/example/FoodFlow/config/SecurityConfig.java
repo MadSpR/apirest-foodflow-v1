@@ -38,7 +38,7 @@ public class SecurityConfig {
         http
                 .csrf(config -> config.disable()) //TODO:deshabilitamos CSRF para APIs REST
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login").permitAll() //rutas públicas TODO:(añadir ', "/user/add"' cuando solo admins puedad crear usuarios admin)
+                        .requestMatchers("/auth/login", "/user/add").permitAll() //rutas públicas
                         .anyRequest().authenticated() //las demás necesitan autenticación
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(
