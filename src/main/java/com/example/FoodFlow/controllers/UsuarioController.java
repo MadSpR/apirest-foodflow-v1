@@ -38,12 +38,12 @@ public class UsuarioController { //TODO: mover la lógica de negocio a UsuarioSe
 //        }
 //    }
 
-    @PreAuthorize("hasRole('ADMIN')") //TODO: solo un administrador puede añadir usuarios con el rol admin, hasta entonces solo un administrador puede añadir
+    //TODO: solo un administrador puede añadir usuarios con el rol admin
     @PostMapping(path = "/add") //maps ONLY POST petitions
     public @ResponseBody String addNewUser (@RequestParam String nombre, @RequestParam String email, @RequestParam String pass, @RequestParam String direccion, @RequestParam(defaultValue = "USER") String rol){
             //@ResponseBody means the returned String is the response, not a view name
             //@RequestParam means it is a parameter from the GET or POST request
-            Usuario usu = new Usuario();
+        Usuario usu = new Usuario();
             usu.setNombre(nombre);
             usu.setEmail(email);
             //pass = encryptPass(pass);
@@ -61,4 +61,5 @@ public class UsuarioController { //TODO: mover la lógica de negocio a UsuarioSe
         //this returns a JSON or XML with the users
         return usuarioRepo.findAll();
     }
+
 }
