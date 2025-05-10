@@ -4,12 +4,15 @@ import com.example.FoodFlow.models.Rol;
 import com.example.FoodFlow.models.Usuario;
 import com.example.FoodFlow.repositories.UsuarioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
 import java.util.Base64;
 
 @RestController
@@ -40,9 +43,28 @@ public class UsuarioController { //TODO: mover la lógica de negocio a UsuarioSe
 
     //TODO: solo un administrador puede añadir usuarios con el rol admin
     @PostMapping(path = "/add") //maps ONLY POST petitions
-    public @ResponseBody String addNewUser (@RequestParam String nombre, @RequestParam String email, @RequestParam String pass, @RequestParam String direccion, @RequestParam(defaultValue = "USER") String rol){
+    public @ResponseBody String addNewUser (@RequestParam String nombre, @RequestParam String email, @RequestParam String pass, @RequestParam String direccion, @RequestParam(defaultValue = "USER") String rol, Principal principal){
             //@ResponseBody means the returned String is the response, not a view name
             //@RequestParam means it is a parameter from the GET or POST request
+
+        //comprueba si es un admin y tiene permisos para crear otro usuario administrador
+        if (rol.equalsIgnoreCase("ADMIN")){
+            if (principal == null){
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No tienes permisos para crear un usuario administrador");
+            }
+            try{
+                Usuario actual = usuarioRepo.findByNombre(principal.getName());
+
+                if(!actual.getRol().name().equals("ADMIN")){
+                    throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Solo un administrador puede realizar esta acción");
+                }
+
+            } catch (Exception e) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "El usuario no se ha encontrado o no tiene permisos");
+            }
+        }
+
+        //crea el usuario
         Usuario usu = new Usuario();
             usu.setNombre(nombre);
             usu.setEmail(email);
