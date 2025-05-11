@@ -24,25 +24,7 @@ public class UsuarioController { //TODO: mover la lógica de negocio a UsuarioSe
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    //private Base64.Encoder encoder = Base64.getEncoder();
-
-    //deprecated, lo he cambiado por un passwordEncoder declarado en securityconfig
-//    private String encryptPass(String pass){
-//        //password encryption
-//        try {
-//            MessageDigest md = MessageDigest.getInstance("SHA-256");
-//            md.update(pass.getBytes());
-//            byte[] resumen = md.digest();
-//            pass = encoder.encodeToString(resumen);
-//        } catch (NoSuchAlgorithmException e) {
-//            throw new RuntimeException(e);
-//        } finally {
-//            return pass;
-//        }
-//    }
-
-    //TODO: solo un administrador puede añadir usuarios con el rol admin
-    @PostMapping(path = "/add") //maps ONLY POST petitions
+    @PostMapping(path = "/add")
     public @ResponseBody String addNewUser (@RequestParam String nombre, @RequestParam String email, @RequestParam String pass, @RequestParam String direccion, @RequestParam(defaultValue = "USER") String rol, Principal principal){
             //@ResponseBody means the returned String is the response, not a view name
             //@RequestParam means it is a parameter from the GET or POST request

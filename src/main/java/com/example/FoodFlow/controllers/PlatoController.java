@@ -11,13 +11,16 @@ import java.math.BigDecimal;
 @RestController
 @RequestMapping(path = "/menu")
 public class PlatoController {
-
+//TODO: añadir en lla bbdd una fila para id del restaurante al que pertenece y crear funcion para listar platos por restauranteID
     @Autowired
     private PlatoRepo platoRepo;
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(path = "/add")
     public @ResponseBody String addNewPlato (@RequestParam String nombre, @RequestParam String descripcion, @RequestParam BigDecimal precio, @RequestParam byte[] imagen, @RequestParam Boolean disponible){
+
+
+
         Plato plato = new Plato();
         plato.setNombre(nombre);
         plato.setDescripcion(descripcion);

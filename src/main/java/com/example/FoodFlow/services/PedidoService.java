@@ -31,10 +31,10 @@ public class PedidoService {
         return pedidoRepo.findAll();
     }
 
-    public Pedido crearPedido(SolicitudPedidoDTO solicitudPedidoDTO){
+    public Pedido crearPedido(SolicitudPedidoDTO solicitudPedidoDTO, Long usuarioId){
 
         try {
-            Usuario usu = usuarioRepo.findById(solicitudPedidoDTO.getUsuarioId()).orElse(null);
+            Usuario usu = usuarioRepo.findById(usuarioId).orElse(null);
             if (usu == null){
                 throw new RuntimeException("Usuario no encontrado");
             }
